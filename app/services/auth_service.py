@@ -60,7 +60,7 @@ class AuthService:
                 detail="User could not be created.",
             )
 
-        access_token = create_access_token(subject=db_user.id)
+        access_token = create_access_token(user=db_user)
         return {
             "user": db_user,
             "token": {
