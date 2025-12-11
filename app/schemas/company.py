@@ -11,6 +11,7 @@ class CompanyCreate(CompanyBase):
 
 class Company(CompanyBase):
     id: int
+    unique_code: str
     created_at: datetime
     updated_at: datetime
 

@@ -7,6 +7,8 @@ from alembic import context
 from sqlalchemy.engine.url import make_url
 
 from app.core.database import Base, DATABASE_URL
+from app.models.company import Company
+from app.models.user import User
 
 
 # this is the Alembic Config object, which provides

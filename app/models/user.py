@@ -4,8 +4,8 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 class UserRole(enum.Enum):
-    superadmin = "superadmin"
     company = "company"
+    superadmin = "superadmin"
     employee = "employee"
 
 class User(Base):

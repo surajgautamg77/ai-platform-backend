@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from app.models.user import UserRole
 
@@ -7,7 +7,7 @@ class UserBase(BaseModel):
     full_name: str | None = None
 
 class UserCreate(UserBase):
-    password: str
+    password: str = Field(..., max_length=72)
     company_id: int | None = None
 
 class User(UserBase):
