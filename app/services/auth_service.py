@@ -6,8 +6,7 @@ from app.repositories.user_repo import user_repo
 from app.models.user import UserRole
 from app.schemas.company import CompanyCreate
 from app.schemas.user import UserCreate
-
-from app.schemas.user import User
+from app.core.security import create_access_token
 
 class AuthService:
     def signup(self, db: Session, payload: SignupPayload):
@@ -31,6 +30,7 @@ class AuthService:
             full_name=payload.name # Use payload.name here
         )
 
+        db_user = None
         # 2. Handle Employee Signup
         if payload.role == UserRole.employee:
             db_company = company_repo.get_company_by_code(db, payload.company_code)
@@ -43,7 +43,6 @@ class AuthService:
             db_user = user_repo.create_user(
                 db, user=user_data, role=UserRole.employee, company_id=db_company.id
             )
-            return db_user
 
         # 3. Handle Company Admin Signup
         elif payload.role == UserRole.company:
@@ -54,7 +53,20 @@ class AuthService:
             db_user = user_repo.create_user(
                 db, user=user_data, role=UserRole.company, company_id=db_company.id
             )
-            # For this flow, returning the company seems more appropriate
-            return db_company
-        
+
+        if db_user is None:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="User could not be created.",
+            )
+
+        access_token = create_access_token(subject=db_user.id)
+        return {
+            "user": db_user,
+            "token": {
+                "access_token": access_token,
+                "token_type": "bearer"
+            }
+        }
+
 auth_service = AuthService()
