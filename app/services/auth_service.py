@@ -1,12 +1,13 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from app.schemas.auth import SignupPayload
+from app.schemas.auth import LoginPayload, SignupPayload
 from app.repositories.company_repo import company_repo
 from app.repositories.user_repo import user_repo
-from app.models.user import UserRole
+from app.models.user import User, UserRole
 from app.schemas.company import CompanyCreate
 from app.schemas.user import UserCreate
 from app.core.security import create_access_token
+from app.utils.hashing import Hasher
 
 class AuthService:
     def signup(self, db: Session, payload: SignupPayload):
@@ -58,6 +59,29 @@ class AuthService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="User could not be created.",
+            )
+
+        access_token = create_access_token(user=db_user)
+        return {
+            "user": db_user,
+            "token": {
+                "access_token": access_token,
+                "token_type": "bearer"
+            }
+        }
+
+    def login(self, db: Session, payload: LoginPayload):
+        db_user = user_repo.get_user_by_email(db, payload.email)
+        if not db_user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"User with email {payload.email} not found",
+            )
+
+        if not Hasher.verify_password(payload.password, db_user.hashed_password):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect password",
             )
 
         access_token = create_access_token(user=db_user)

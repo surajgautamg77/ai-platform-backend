@@ -35,3 +35,12 @@ class Token(BaseModel):
 class SignupResponse(BaseModel):
     user: User
     token: Token
+
+
+class LoginPayload(BaseModel):
+    email: str
+    password: str = Field(..., max_length=72)
+
+
+LoginResponse = SignupResponse
+
