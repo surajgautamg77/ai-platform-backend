@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.user import User, UserRole
+from app.models.company import Company
 from app.schemas.user import UserCreate
 from app.utils.hashing import Hasher
 
@@ -20,5 +21,7 @@ class UserRepo:
     def get_user_by_email(self, db: Session, email: str) -> User | None:
         return db.query(User).filter(User.email == email).first()
 
-
+    def get_users_by_company_id(self,db:Session,company_id: int):
+        return db.query(User).filter(User.company_id==company_id)
+    
 user_repo = UserRepo()

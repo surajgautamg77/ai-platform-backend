@@ -11,6 +11,7 @@ class TokenData(BaseModel):
 def create_access_token(
     user: User, expires_delta: timedelta = None
 ) -> str:
+    
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
@@ -24,6 +25,7 @@ def create_access_token(
         "email": user.email,
         "role": user.role.value
     }
+    
     encoded_jwt = jwt.encode(
         to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM
     )

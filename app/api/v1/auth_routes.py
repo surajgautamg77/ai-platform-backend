@@ -5,7 +5,7 @@ from app.services.auth_service import auth_service
 
 router = APIRouter()
 
-@router.post("/signup", response_model=SignupResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/signup", response_model=SignupResponse, status_code=status.HTTP_200_OK)
 def signup(request: Request, payload: SignupPayload):
     db: Session = request.state.db
     return auth_service.signup(db, payload)
