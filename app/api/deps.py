@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from fastapi import Depends, HTTPException, status, Request
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
@@ -33,14 +33,20 @@ def get_current_user(
     return user
 
 
-class RoleChecker:
-    def __init__(self, allowed_roles: List[UserRole]):
-        self.allowed_roles = allowed_roles
+def RoleRequired(allowed_roles: Optional[List[UserRole]] = None):
+    """
+    A factory that returns a dependency checking for authentication and,
+    optionally, for specific user roles.
 
-    def __call__(self, user: User = Depends(get_current_user)):
-        if user.role not in self.allowed_roles:
+    :param allowed_roles: An optional list of roles that are allowed.
+                          If None or empty, any authenticated user is allowed.
+    """
+    def role_checker(current_user: User = Depends(get_current_user)) -> User:
+        if allowed_roles and current_user.role not in allowed_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="The user does not have enough privileges",
             )
-        return user
+        return current_user
+    
+    return role_checker
