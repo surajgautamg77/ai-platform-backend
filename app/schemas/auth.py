@@ -34,7 +34,7 @@ class Token(BaseModel):
 
 class SignupResponse(BaseModel):
     user: User
-    company_code:str
+    company_code: str | None = None
     token: Token
 
 

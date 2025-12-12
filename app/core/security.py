@@ -3,6 +3,9 @@ from jose import jwt
 from app.core.config import settings
 from app.models.user import User
 from pydantic import BaseModel
+from fastapi.security import OAuth2PasswordBearer
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 class TokenData(BaseModel):
     email: str | None = None

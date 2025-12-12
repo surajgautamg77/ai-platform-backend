@@ -22,3 +22,4 @@ class User(Base):
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
     company = relationship("Company", back_populates="users")
+    sessions = relationship("Session", back_populates="user")
