@@ -1,4 +1,13 @@
 from pydantic import BaseModel
+from datetime import datetime
 
-class ChatsSession(BaseModel):
+class CreateChatsSession(BaseModel):
     session_name:str
+
+class Session(BaseModel):
+    id: int
+    session_name: str
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
