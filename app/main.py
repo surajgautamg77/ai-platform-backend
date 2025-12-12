@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.router import api_router
 from app.core.database import engine, Base
+from app.middleware.middleware import DBSessionMiddleware
 
 # Create all tables
 Base.metadata.create_all(bind=engine)
@@ -12,7 +13,8 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS Middleware
+# Add middleware
+app.add_middleware(DBSessionMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
