@@ -64,6 +64,7 @@ class AuthService:
         access_token = create_access_token(user=db_user)
         return {
             "user": db_user,
+            "company_code": db_company.unique_code,
             "token": {
                 "access_token": access_token,
                 "token_type": "bearer"
