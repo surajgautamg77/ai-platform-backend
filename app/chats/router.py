@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
-from .schemas.session_schemas import CreateChatsSession, Session as SessionSchema
-from .repositories.session_repo import session_repo
+from app.common.schemas.session_schemas import CreateChatsSession, Session as SessionSchema
+from app.common.repositories.session_repo import session_repo
 from app.common.dependencies.auth import RoleRequired
 from app.common.models.user import User, UserRole
 from app.common.utils.pagination import pagination_parameters, PaginatedResponse

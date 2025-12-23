@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Request
 from sqlalchemy.orm import Session
-from .schemas.auth_schemas import LoginPayload, LoginResponse, SignupPayload, SignupResponse
+from app.common.schemas.auth_schemas import LoginPayload, LoginResponse, SignupPayload, SignupResponse
 from .services.auth_service import auth_service
 
 router = APIRouter()

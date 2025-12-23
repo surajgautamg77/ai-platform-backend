@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.common.models.session import Session as SessionModel
-from ..schemas.session_schemas import CreateChatsSession
+from app.common.schemas.session_schemas import CreateChatsSession
 from typing import List, Tuple
 
 class SessionRepository:

@@ -1,11 +1,11 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from ..schemas.auth_schemas import LoginPayload, SignupPayload
-from app.users.repositories.company_repo import company_repo
-from app.users.repositories.user_repo import user_repo
+from app.common.schemas.auth_schemas import LoginPayload, SignupPayload
+from app.common.repositories.company_repo import company_repo
+from app.common.repositories.user_repo import user_repo
 from app.common.models.user import User, UserRole
-from app.users.schemas.company_schemas import CompanyCreate
-from app.users.schemas.user_schemas import UserCreate
+from app.common.schemas.company_schemas import CompanyCreate
+from app.common.schemas.user_schemas import UserCreate
 from app.common.utils.token import create_access_token
 from app.common.utils.hashing import Hasher
 
