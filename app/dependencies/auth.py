@@ -1,11 +1,14 @@
 from typing import List, Optional
 from fastapi import Depends, HTTPException, status, Request
+from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
-from app.core.security import oauth2_scheme, TokenData
+from app.auth.schemas import TokenData
 from app.core.config import settings
 from app.models.user import User, UserRole
-from app.repositories.user_repo import user_repo
+from app.users.repository import user_repo
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
 def get_current_user(

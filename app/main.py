@@ -1,6 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.router import api_router
+
+# Import domain routers
+from app.users import router as user_router
+from app.chats import router as chat_router
+from app.auth import router as auth_router
+
 from app.core.database import engine, Base
 from app.middleware.middleware import DBSessionMiddleware
 
@@ -26,6 +31,12 @@ app.add_middleware(
 @app.get("/", tags=["Health Check"])
 def read_root():
     return {"message": "Welcome to the AI Platform API"}
+
+# Include domain routers
+api_router = APIRouter()
+api_router.include_router(auth_router.router, prefix="/auth", tags=["auth"])
+api_router.include_router(chat_router.router, prefix="/chat", tags=["chat"])
+api_router.include_router(user_router.router, prefix="/users", tags=["users"])
 
 app.include_router(api_router, prefix="/api/v1")
 

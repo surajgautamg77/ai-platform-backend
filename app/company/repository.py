@@ -1,7 +1,7 @@
 import secrets
 from sqlalchemy.orm import Session
 from app.models.company import Company
-from app.schemas.company import CompanyCreate
+from .schemas import CompanyCreate
 
 class CompanyRepo:
     def create_company(self, db: Session, company: CompanyCreate) -> Company:

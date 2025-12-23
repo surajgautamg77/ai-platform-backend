@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models.user import User, UserRole
 from app.models.company import Company
-from app.schemas.user import UserCreate
+from .schemas import UserCreate
 from app.utils.hashing import Hasher
 
 class UserRepo:

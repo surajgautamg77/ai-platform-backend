@@ -1,6 +1,6 @@
 from pydantic import BaseModel, model_validator, Field
 from app.models.user import UserRole
-from app.schemas.user import User
+from app.users.schemas import User
 
 class SignupPayload(BaseModel):
     name: str # Combined field for full_name or company_name
@@ -44,4 +44,9 @@ class LoginPayload(BaseModel):
 
 
 LoginResponse = SignupResponse
+
+
+class TokenData(BaseModel):
+    email: str | None = None
+    role: str | None = None
 
