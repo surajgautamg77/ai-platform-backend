@@ -1,13 +1,13 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from .schemas import LoginPayload, SignupPayload
-from app.company.repository import company_repo
-from app.users.repository import user_repo
-from app.models.user import User, UserRole
-from app.company.schemas import CompanyCreate
-from app.users.schemas import UserCreate
-from app.utils.token import create_access_token
-from app.utils.hashing import Hasher
+from ..schemas.auth_schemas import LoginPayload, SignupPayload
+from app.users.repositories.company_repo import company_repo
+from app.users.repositories.user_repo import user_repo
+from app.common.models.user import User, UserRole
+from app.users.schemas.company_schemas import CompanyCreate
+from app.users.schemas.user_schemas import UserCreate
+from app.common.utils.token import create_access_token
+from app.common.utils.hashing import Hasher
 
 class AuthService:
     def signup(self, db: Session, payload: SignupPayload):

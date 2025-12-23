@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
-from .schemas import CreateChatsSession, Session as SessionSchema
-from .repository import session_repo
-from app.dependencies.auth import RoleRequired
-from app.models.user import User, UserRole
-from app.utils.pagination import pagination_parameters, PaginatedResponse
+from .schemas.session_schemas import CreateChatsSession, Session as SessionSchema
+from .repositories.session_repo import session_repo
+from app.common.dependencies.auth import RoleRequired
+from app.common.models.user import User, UserRole
+from app.common.utils.pagination import pagination_parameters, PaginatedResponse
 
 router = APIRouter()
 

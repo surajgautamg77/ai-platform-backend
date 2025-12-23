@@ -1,7 +1,7 @@
 import uuid
 from sqlalchemy import Column, String, ForeignKey, DateTime, Integer
 from sqlalchemy.orm import relationship
-from app.core.database import Base
+from app.common.core.database import Base
 import datetime
 
 class Session(Base):

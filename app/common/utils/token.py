@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from jose import jwt
-from app.core.config import settings
-from app.models.user import User
+from app.common.core.config import settings
+from app.common.models.user import User
 
 def create_access_token(
     user: User, expires_delta: timedelta = None

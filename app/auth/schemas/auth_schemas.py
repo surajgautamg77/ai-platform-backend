@@ -1,6 +1,6 @@
 from pydantic import BaseModel, model_validator, Field
-from app.models.user import UserRole
-from app.users.schemas import User
+from app.common.models.user import UserRole
+from app.users.schemas.user_schemas import User
 
 class SignupPayload(BaseModel):
     name: str # Combined field for full_name or company_name

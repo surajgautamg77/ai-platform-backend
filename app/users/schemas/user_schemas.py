@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from app.models.user import UserRole
+from app.common.models.user import UserRole
 
 class UserBase(BaseModel):
     email: str

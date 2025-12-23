@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-from app.models.user import User, UserRole
-from app.models.company import Company
-from .schemas import UserCreate
-from app.utils.hashing import Hasher
+from app.common.models.user import User, UserRole
+from app.common.models.company import Company
+from ..schemas.user_schemas import UserCreate
+from app.common.utils.hashing import Hasher
 
 class UserRepo:
     def create_user(self, db: Session, user: UserCreate, role: UserRole, company_id: int = None) -> User:

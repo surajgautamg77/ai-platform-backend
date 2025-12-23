@@ -6,8 +6,8 @@ from app.users import router as user_router
 from app.chats import router as chat_router
 from app.auth import router as auth_router
 
-from app.core.database import engine, Base
-from app.middleware.middleware import DBSessionMiddleware
+from app.common.core.database import engine, Base
+from app.common.middleware.middleware import DBSessionMiddleware
 
 # Create all tables
 Base.metadata.create_all(bind=engine)
@@ -42,5 +42,5 @@ app.include_router(api_router, prefix="/api/v1")
 
 if __name__ == "__main__":
     import uvicorn
-    from app.core.config import settings
+    from app.common.core.config import settings
     uvicorn.run(app, host="0.0.0.0", port=settings.PORT)
